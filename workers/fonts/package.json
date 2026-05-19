@@ -1,0 +1,6 @@
+{
+  "name": "@watiloinc/fonts-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker that serves licensed fonts from R2 with origin-based access control. Deploy from repo root: pnpm wrangler deploy --config workers/fonts/wrangler.jsonc"
+}
