@@ -50,7 +50,7 @@ Two licensed Fontspring families, served from a Cloudflare Worker backed by an R
 - **`font-display`** (Tailwind class) &rarr; `"ZT Bros Oskon 90s Expanded"` &mdash; **bold + bold-italic only**. Use for site headers, nav, prominent UI. Don't use `font-normal` with this family; the browser will fake a regular weight from the bold cut.
 - **`font-body`** (Tailwind class, applied to `<body>` by default) &rarr; `"ZT Bros Oskon 90s ExtraExpanded"` &mdash; regular / italic / bold / bold-italic. Use for content (long-form text, paragraphs).
 
-Tokens live in [src/app/globals.css](src/app/globals.css) under `@theme`; Tailwind v4 auto-generates the utilities.
+Fonts and color tokens live in [src/app/globals.css](src/app/globals.css) under `@theme`; Tailwind v4 auto-generates the utilities (`font-display`, `text-primary`, `bg-background`, etc.).
 
 ### Architecture
 
@@ -94,6 +94,13 @@ pnpm wrangler r2 object list watilo-fonts
 - Keep components colocated with their route under `src/app/` until they're reused, then promote to `src/components/`.
 - No premature abstractions &mdash; three similar lines are fine.
 - Don't add comments that just describe what the code does; only document non-obvious *why*.
+
+### Styling
+
+- **Design tokens** live in [src/app/globals.css](src/app/globals.css) under `@theme`. Use the generated utilities (`text-primary`, `bg-background`, etc.) instead of inlining hex values. Default text/background colors are applied on `body` via `@apply bg-background text-primary`.
+- **`bg-background`** is a custom `@utility` (cream + sand grain at 300&times;300). The cream hex lives in `--color-cream`, not `--color-background` &mdash; naming a theme color `background` makes Tailwind emit a color-only `.bg-background` that overrides the custom utility.
+- **Prefer the stock Tailwind scale** over arbitrary JIT values (`text-[32px]`, `mb-[0.35em]`, `max-w-[710px]`, etc.). When the mock is between steps, pick the nearest token (e.g. `sm:mt-24` for ~90px, `max-w-3xl` for ~710px).
+- **Component-specific CSS** that can't be expressed cleanly with utilities (e.g. TOC dotted leaders) belongs in `globals.css` under `@layer components`, not as one-off arbitrary classes in JSX.
 
 ## Skills worth invoking
 

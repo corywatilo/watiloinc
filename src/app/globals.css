@@ -3,22 +3,34 @@
 @theme {
   --font-display: "ZT Bros Oskon 90s Expanded", system-ui, sans-serif;
   --font-body: "ZT Bros Oskon 90s ExtraExpanded", system-ui, sans-serif;
+  --color-primary: #333427;
+  /* Cream only — not named --color-background or Tailwind emits a color-only bg-background. */
+  --color-cream: #fff0e2;
+  --background-image-sand: url("/images/sand.png");
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility bg-background {
+  background-color: var(--color-cream);
+  background-image: var(--background-image-sand);
+  background-size: 300px 300px;
+  background-repeat: repeat;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
+  @apply bg-background text-primary font-body;
+}
+
+@layer components {
+  .toc-leader {
+    @apply mb-1 min-w-8 flex-1;
+    height: 2px;
+    background-image: radial-gradient(
+      circle,
+      currentColor 1.25px,
+      transparent 1.25px
+    );
+    background-size: 0.75rem 2px;
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+  }
 }
